@@ -5,16 +5,16 @@ const Post = require('../models/post');
 
 router.get('/', function(req, res) {
   res.json({
-    "message": "His this endpoint with a post request using the following schema",
+    "message": "Hit the /posts/new endpoint with a post request using the following schema",
     "bodySchema": {
-      "userId": "String",
-      "message": "String",
-      "Date": "Date"
+      "userId": "A string, required",
+      "message": "A string, required",
+      "Date": "A Date object, default = Data.now()"
     }
   });
 });
 
-router.post('/', async (req,res) => {
+router.post('/new', async (req,res) => {
   const post = new Post({
     userId: req.body.userId,
     message: req.body.message

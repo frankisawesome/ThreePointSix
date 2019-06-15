@@ -5,7 +5,14 @@ const dotenv = require('dotenv');
 dotenv.config();
 
 //db connection
-mongoose.connect(process.env.DB_CON, ()=> console.log('MongoDB Atlas connection successful'));
+mongoose.connect(process.env.DB_CON, (err) => {
+    if (!err){
+        console.log('Connected to MongoDB atlas');
+    }
+    else {
+        console.log(err);
+    }
+});
 
 //Routes
 var indexRouter = require('./routes/index');
