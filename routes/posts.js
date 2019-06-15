@@ -3,7 +3,8 @@ const express = require('express');
 const router = express.Router();
 const Post = require('../models/post');
 
-router.get('/', function(req, res) {
+//Information route for schema information
+router.get('/', (req, res) => {
   res.json({
     "message": "Hit the /posts/new endpoint with a post request using the following schema",
     "bodySchema": {
@@ -14,16 +15,17 @@ router.get('/', function(req, res) {
   });
 });
 
-router.post('/new', async (req,res) => {
+//Post route for new message creation
+router.post('/new', async (req, res) => {
   const post = new Post({
     userId: req.body.userId,
     message: req.body.message
   })
-  try{
+  try {
     const posted = await post.save();
-    res.send({"message": "success", "posted": posted})
-  }catch(err){
-    res.send({"message":err})
+    res.send({ "message": "success", "posted": posted })
+  } catch (err) {
+    res.send({ "message": err })
   }
 })
 
