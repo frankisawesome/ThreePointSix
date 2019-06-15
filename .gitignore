@@ -1,16 +1,3 @@
-# Ignore everything
-*
-
-# But not these files...
-!app.js
-!/routes
-!launch.json
-!.gitignore
-!.env
-!package.json
-# etc...
-
-
-# if the files to be tracked are in subdirectories
-!*/a/b/file1.txt
-!*/a/b/c/*
+bin
+.env
+node_modules/*
