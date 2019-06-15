@@ -2,7 +2,6 @@
 var express = require('express');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
-
 dotenv.config();
 
 //db connection
@@ -15,7 +14,9 @@ var postsRouter = require('./routes/posts');
 //Express Server
 var app = express();
 
+app.use(express.json())
 
+//Catch routes
 app.use('/', indexRouter);
 app.use('/posts', postsRouter);
 
