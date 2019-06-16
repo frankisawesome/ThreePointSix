@@ -1,6 +1,7 @@
 //Imports
 const express = require('express');
 const router = express.Router();
+const Post = require('../models/post');
 
 //Information route
 router.get('/', (req, res) => {
@@ -13,8 +14,12 @@ router.get('/', (req, res) => {
     })
 })
 
-router.get('/$time', (req, res) => {
-    
+router.get('/topten', (req, res) => {
+    Post.find(function (err, posts) {
+        if (err) return console.error(err);
+        console.log(posts);
+        res.send(posts)
+    })
 })
 
 module.exports = router;
