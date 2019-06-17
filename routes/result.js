@@ -14,17 +14,44 @@ router.get('/', (req, res) => {
     })
 })
 
+//Queries the database and store all messages in an array, pass to next middleware
 router.get('/toptenposts', (req, res) => {
-    Post.find(function (err, posts) {
-        if (err) return console.error(err);
+    Post.find(function (err, posts) { //use the mongoose find function for db query
+        if (err) return console.error(err); //log any error
         const data = [];
         posts.map((doc) => {
-            data.push(doc.message)
+            data.push(doc.message) //only take messages
         })
-        res.json({
-            data: data
-        })
+        res.send(TopTen(data));
     })
 })
+
+function TopTen(array){
+    array.sort();
+
+    const objArr = [];
+    let current = null;
+    let count = 0;
+
+    //Find the count for all messages and store the count and message as objects in a new array
+    for (var i=0; i <= array.length; i++){
+        if (array[i] != current){
+            if (count>0){
+                objArr.push({
+                    data: current,
+                    count: count
+                })
+            }
+            current = array[i];
+            count = 1;
+        } else {
+            count++;
+        }
+    }
+
+    //Sort the new array based on count and take the top ten items
+    objArr.sort((a, b) => (a.count > b.count) ? 1 : -1);
+    return objArr;
+}
 
 module.exports = router;
