@@ -14,11 +14,16 @@ router.get('/', (req, res) => {
     })
 })
 
-router.get('/topten', (req, res) => {
+router.get('/toptenposts', (req, res) => {
     Post.find(function (err, posts) {
         if (err) return console.error(err);
-        console.log(posts);
-        res.send(posts)
+        const data = [];
+        posts.map((doc) => {
+            data.push(doc.message)
+        })
+        res.json({
+            data: data
+        })
     })
 })
 
